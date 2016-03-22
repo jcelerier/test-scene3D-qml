@@ -10,7 +10,7 @@ set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};/usr/jamoma/share/cmake/Jamoma/")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 if (OSSIA_API)
-	add_subdirectory(${OSSIA_API})
+	add_subdirectory(${OSSIA_API} API)
 
 	find_package(Qt5 5.6 REQUIRED COMPONENTS Core Widgets Gui Quick Qml 3DCore)
 	add_executable(${EXECNAME} main.cpp transmitter.h transmitter.cpp publisher.h publisher.cpp)
