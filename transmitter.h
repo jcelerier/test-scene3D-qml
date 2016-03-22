@@ -14,11 +14,8 @@ class Transmitter : public QObject
     Q_OBJECT
 
 public:
-    Transmitter();
     Transmitter(int, int);
-    virtual void init() = 0;
 
-protected:
     std::shared_ptr<OSSIA::Local> _localProtocol;
     std::shared_ptr<OSSIA::Device> _localDevice;
 

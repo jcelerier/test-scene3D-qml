@@ -12,13 +12,11 @@ class Publisher : public Transmitter
     Q_OBJECT
 
 public:
-    explicit Publisher();
-    explicit Publisher(int, int);
-    void init();
+    explicit Publisher(int, int, QString);
 
 signals:
-    void xChanged(double);
-    void yChanged(double);
+    void xChanged(double x);
+    void yChanged(double y);
 
 };
 

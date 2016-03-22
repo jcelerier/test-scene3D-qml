@@ -12,10 +12,15 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 if (OSSIA_API)
 	add_subdirectory(${OSSIA_API} API)
 
-	find_package(Qt5 5.6 REQUIRED COMPONENTS Core Widgets Gui Quick Qml 3DCore)
-	add_executable(${EXECNAME} main.cpp transmitter.h transmitter.cpp publisher.h publisher.cpp)
+        find_package(Qt5 5.5 REQUIRED COMPONENTS Core Widgets Gui Quick Qml Multimedia)
+        qt5_add_resources(QRCS resources.qrc)
+        add_executable(${EXECNAME} ${QRCS}
+            main.cpp
+            transmitter.h transmitter.cpp
+            publisher.h publisher.cpp
+            OssiaProperty.hpp OssiaProperty.cpp)
 
-	target_link_libraries(${EXECNAME} PUBLIC Qt5::Core Qt5::Widgets Qt5::Gui APIJamoma Qt5::Qml Qt5::3DCore)
+        target_link_libraries(${EXECNAME} PUBLIC Qt5::Core Qt5::Widgets Qt5::Gui APIJamoma Qt5::Qml Qt5::Multimedia)
 else()
 	message( SEND_ERROR "Please specify the path to the OSSIA API in the variable OSSIA_API (-DOSSIA_API=/path/to/api)" )
 endif()

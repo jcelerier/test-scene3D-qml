@@ -7,12 +7,11 @@
 using namespace OSSIA;
 using namespace std;
 
-Publisher::Publisher() : Transmitter(){}
-Publisher::Publisher(int pPort, int rPort) : Transmitter(pPort, rPort) {}
-
-void Publisher::init() {
+Publisher::Publisher(int pPort, int rPort, QString name):
+    Transmitter(pPort, rPort)
+{
     _localProtocol = Local::create();
-    _localDevice = Device::create(_localProtocol, "Scene");
+    _localDevice = Device::create(_localProtocol, name.toStdString());
 
     _posNode = *(_localDevice->emplace(_localDevice->children().cend(), "listener"));
     _xNode = *(_posNode->emplace(_posNode->children().cend(), "x_pos"));
