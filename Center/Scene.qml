@@ -16,13 +16,14 @@ Item {
         }
     }
 
-    Audio {
+    SoundEffect {
         id: playMusic
-        source: "file:///home/jcelerier/travail/test-scene-audio3D/Center/contents/fond-B.mp3"
+        source: "file:///home/jcelerier/travail/test-scene-audio3D/Center/contents/fond-B.wav"
         OssiaProperty on volume {
             node: "bgm/gain"
         }
-        volume: 0.1
+        volume: 0
+        loops: SoundEffect.Infinite
         Component.onCompleted: playMusic.play()
     }
 
