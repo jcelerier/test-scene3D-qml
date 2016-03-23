@@ -59,13 +59,6 @@ Item {
             attenuationModel:"atten"
             category:"sfx"
             PlayVariation {
-                sample:"horn"
-                maxGain:0.9
-                minGain:0.8
-                minPitch: 0.8
-                maxPitch: 1.1
-            }
-            PlayVariation {
                 sample:"engine"
                 maxGain:0.9
                 minGain:0.8
@@ -79,7 +72,6 @@ Item {
             attenuationModel:"atten"
             category:"sfx"
             PlayVariation {
-                looping:true
                 sample:"horn"
                 maxGain:0.9
                 minGain:0.8
@@ -93,7 +85,6 @@ Item {
             attenuationModel:"atten"
             category:"sfx"
             PlayVariation {
-                looping:true
                 sample:"whistle"
                 maxGain:0.9
                 minGain:0.8
@@ -120,7 +111,10 @@ Item {
         engine:audioEngine
         sound:"engine_sound"
         position: Qt.vector3d(300, 400, 0)
-        Component.onCompleted: shipSound.play()
+
+        OssiaProperty on gain {
+            node: "engine/gain"
+        }
     }
 
     SoundInstance {
@@ -128,6 +122,32 @@ Item {
         engine:audioEngine
         sound:"horn_sound"
         position: Qt.vector3d(500, 600, 0)
-        Component.onCompleted: hornSound.play()
+        OssiaProperty on gain {
+            node: "horn/gain"
+        }
+    }
+
+    SoundInstance {
+        id: whistleSound
+        engine:audioEngine
+        sound:"whistle_sound"
+        position: Qt.vector3d(200, 200, 150)
+
+        OssiaProperty on gain {
+            node: "whistle/gain"
+        }
+    }
+
+    OssiaImpulse {
+        node: "horn/play"
+        onImpulse: hornSound.play()
+    }
+    OssiaImpulse {
+        node: "engine/play"
+        onImpulse: engineSound.play()
+    }
+    OssiaImpulse {
+        node: "whistle/play"
+        onImpulse: whistleSound.play()
     }
 }

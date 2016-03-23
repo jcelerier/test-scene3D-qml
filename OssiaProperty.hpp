@@ -36,6 +36,9 @@ private:
     QString m_node;
     std::shared_ptr<OSSIA::Node> m_ossia_node{};
     std::shared_ptr<OSSIA::Address> m_address{};
-    OSSIA::Address::iterator m_cbIt;
-    QVariant::Type m_type{};
+    int m_type{};
 };
+
+std::shared_ptr<OSSIA::Node> getOrCreateNode(
+        std::shared_ptr<OSSIA::Node> root,
+        QStringList str);

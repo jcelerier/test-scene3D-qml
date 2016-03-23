@@ -3,6 +3,7 @@
 #include <thread>
 #include "publisher.h"
 #include "OssiaProperty.hpp"
+#include "OssiaImpulse.hpp"
 #include "QMLOssiaPlugin.hpp"
 #include <QQmlComponent>
 #include <QQmlProperty>
@@ -12,6 +13,7 @@ Publisher* publisher_singleton = nullptr;
 int main(int argc, char *argv[])
 {
     qmlRegisterType<OssiaProperty>("OssiaNetwork", 1, 0, "OssiaProperty");
+    qmlRegisterType<OssiaImpulse>("OssiaNetwork", 1, 0, "OssiaImpulse");
 
     QGuiApplication app(argc, argv);
 

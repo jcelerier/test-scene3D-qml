@@ -19,6 +19,7 @@ if (OSSIA_API)
             transmitter.h transmitter.cpp
             publisher.h publisher.cpp
             OssiaProperty.hpp OssiaProperty.cpp
+            OssiaImpulse.hpp OssiaImpulse.cpp
             QMLOssiaPlugin.hpp QMLOssiaPlugin.cpp)
 
         target_link_libraries(${EXECNAME} PUBLIC Qt5::Core Qt5::Widgets Qt5::Gui APIJamoma Qt5::Qml Qt5::Multimedia)

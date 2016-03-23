@@ -44,7 +44,9 @@ OssiaProperty::OssiaProperty(QObject *parent)
 void OssiaProperty::setTarget(const QQmlProperty &prop)
 {
     m_targetProperty = prop;
-    m_type = prop.property().type();
+    m_type = prop.propertyType();
+    if(m_ossia_node)
+        setupAddress();
 }
 
 QString OssiaProperty::node() const
@@ -75,32 +77,21 @@ void OssiaProperty::setNode(QString node)
                 publisher_singleton->_localDevice,
                 node.split('/'));
 
-    if(auto addr = m_ossia_node->getAddress())
-    {
-        m_address = addr;
-    }
-    else
-    {
-        m_address = m_ossia_node->createAddress(OSSIA::Value::Type::FLOAT);
-        m_cbIt = m_address->addCallback([=] (const OSSIA::Value* val) {
-            if(auto res = dynamic_cast<const OSSIA::Float*>(val) ) {
-                m_targetProperty.write(res->value);
-            }
-        });
-    }
-
+    setupAddress();
     emit nodeChanged(node);
 }
 
 void OssiaProperty::setupAddress()
 {
+    m_ossia_node->removeAddress();
+
     switch(m_type)
     {
 
-    case QVariant::Type::Bool:
+    case QMetaType::Type::Bool:
     {
         m_address = m_ossia_node->createAddress(OSSIA::Value::Type::BOOL);
-        m_cbIt = m_address->addCallback([=] (const OSSIA::Value* val) {
+        m_address->addCallback([=] (const OSSIA::Value* val) {
             if(auto res = dynamic_cast<const OSSIA::Bool*>(val) ) {
                 m_targetProperty.write(res->value);
             }
@@ -108,13 +99,15 @@ void OssiaProperty::setupAddress()
         return;
     }
 
-    case QVariant::Type::Int:
-    case QVariant::Type::UInt:
-    case QVariant::Type::LongLong:
-    case QVariant::Type::ULongLong:
+    case QMetaType::Type::Int:
+    case QMetaType::Type::UInt:
+    case QMetaType::Type::Long:
+    case QMetaType::Type::Short:
+    case QMetaType::Type::LongLong:
+    case QMetaType::Type::ULongLong:
     {
         m_address = m_ossia_node->createAddress(OSSIA::Value::Type::INT);
-        m_cbIt = m_address->addCallback([=] (const OSSIA::Value* val) {
+        m_address->addCallback([=] (const OSSIA::Value* val) {
             if(auto res = dynamic_cast<const OSSIA::Int*>(val) ) {
                 m_targetProperty.write(res->value);
             }
@@ -122,10 +115,11 @@ void OssiaProperty::setupAddress()
         return;
     }
 
-    case QVariant::Type::Double:
+    case QMetaType::Type::Float:
+    case QMetaType::Type::Double:
     {
         m_address = m_ossia_node->createAddress(OSSIA::Value::Type::FLOAT);
-        m_cbIt = m_address->addCallback([=] (const OSSIA::Value* val) {
+        m_address->addCallback([=] (const OSSIA::Value* val) {
             if(auto res = dynamic_cast<const OSSIA::Float*>(val) ) {
                 m_targetProperty.write(res->value);
             }
@@ -133,10 +127,11 @@ void OssiaProperty::setupAddress()
         return;
     }
 
-    case QVariant::Type::Char:
+    case QMetaType::Type::QChar:
+    case QMetaType::Type::Char:
     {
         m_address = m_ossia_node->createAddress(OSSIA::Value::Type::CHAR);
-        m_cbIt = m_address->addCallback([=] (const OSSIA::Value* val) {
+        m_address->addCallback([=] (const OSSIA::Value* val) {
             if(auto res = dynamic_cast<const OSSIA::Char*>(val) ) {
                 m_targetProperty.write(res->value);
             }
@@ -144,10 +139,10 @@ void OssiaProperty::setupAddress()
         return;
     }
 
-    case QVariant::Type::String:
+    case QMetaType::Type::QString:
     {
         m_address = m_ossia_node->createAddress(OSSIA::Value::Type::STRING);
-        m_cbIt = m_address->addCallback([=] (const OSSIA::Value* val) {
+        m_address->addCallback([=] (const OSSIA::Value* val) {
             if(auto res = dynamic_cast<const OSSIA::String*>(val) ) {
                 m_targetProperty.write(QString::fromStdString(res->value));
             }
@@ -158,7 +153,7 @@ void OssiaProperty::setupAddress()
     default:
     {
         m_address = m_ossia_node->createAddress(OSSIA::Value::Type::IMPULSE);
-        m_cbIt = m_address->addCallback([=] (const OSSIA::Value* val) {
+        m_address->addCallback([=] (const OSSIA::Value* val) {
             m_targetProperty.write(QVariant{});
         });
         return;
@@ -167,3 +162,10 @@ void OssiaProperty::setupAddress()
 
     }
 }
+
+
+
+
+
+
+
