@@ -1,73 +1,169 @@
 #include "OssiaProperty.hpp"
 #include "publisher.h"
 #include <iostream>
+
+std::shared_ptr<OSSIA::Node> getOrCreateNode(
+        std::shared_ptr<OSSIA::Node> root,
+        QStringList str)
+{
+    // if the node exists, we return it.
+    for(auto child : root->children())
+    {
+        if(child->getName() == str[0].toStdString())
+        {
+            if(str.size() == 1)
+            {
+                return child;
+            }
+            else
+            {
+                str.removeFirst();
+                return getOrCreateNode(child, str);
+            }
+        }
+    }
+
+    // The node did not exist
+    auto it = root->emplace(root->children().end(), str[0].toStdString());
+    if(str.size() == 1)
+    {
+        return *it;
+    }
+    else
+    {
+        str.removeFirst();
+        return getOrCreateNode(*it, str);
+    }
+}
+
 OssiaProperty::OssiaProperty(QObject *parent)
     : QObject(parent)
 {
 }
 
-void OssiaProperty::setTarget(const QQmlProperty &prop) { m_targetProperty = prop; }
+void OssiaProperty::setTarget(const QQmlProperty &prop)
+{
+    m_targetProperty = prop;
+    m_type = prop.property().type();
+}
 
 QString OssiaProperty::node() const
 {
     return m_node;
 }
 
-Publisher *OssiaProperty::publisher() const
-{
-    return m_publisher;
-}
-
 void OssiaProperty::setNode(QString node)
 {
-    if(!m_publisher)
+    if(!publisher_singleton)
         return;
 
     if (m_node == node)
         return;
 
     m_node = node;
-    if(m_node == "x")
+
+    if(m_ossia_node)
     {
-        if(m_address) {
-            m_address->removeCallback(m_cbIt);
-        }
-        m_address = m_publisher->_xAddress.get();
-        m_cbIt = m_address->addCallback([=] (const OSSIA::Value* val) {
-            if(auto res = dynamic_cast<const OSSIA::Float*>(val) ) {
-                std::cerr << res->value << std::endl;
-                m_targetProperty.write(res->value);
-            }
-        });
+        auto par = m_ossia_node->getParent();
+        auto& cld = par->children();
+        auto it = std::find(cld.begin(), cld.end(), m_ossia_node);
+        if(it != cld.end())
+            par->erase(it);
     }
-    else if(m_node == "y")
+
+    m_ossia_node = getOrCreateNode(
+                publisher_singleton->_localDevice,
+                node.split('/'));
+
+    if(auto addr = m_ossia_node->getAddress())
     {
-        if(m_address) {
-            m_address->removeCallback(m_cbIt);
-        }
-        m_address = m_publisher->_yAddress.get();
-        m_cbIt = m_address->addCallback([=] (const OSSIA::Value* val) {
-            if(auto res = dynamic_cast<const OSSIA::Float*>(val) ) {
-                std::cerr << res->value << std::endl;
-                m_targetProperty.write(res->value);
-            }
-        });
+        m_address = addr;
     }
     else
     {
-        if(m_address) {
-            m_address->removeCallback(m_cbIt);
-        }
-        m_address = nullptr;
+        m_address = m_ossia_node->createAddress(OSSIA::Value::Type::FLOAT);
+        m_cbIt = m_address->addCallback([=] (const OSSIA::Value* val) {
+            if(auto res = dynamic_cast<const OSSIA::Float*>(val) ) {
+                m_targetProperty.write(res->value);
+            }
+        });
     }
+
     emit nodeChanged(node);
 }
 
-void OssiaProperty::setPublisher(Publisher *publisher)
+void OssiaProperty::setupAddress()
 {
-    m_publisher = publisher;
-}
+    switch(m_type)
+    {
 
-void OssiaProperty::updateProperty() {
+    case QVariant::Type::Bool:
+    {
+        m_address = m_ossia_node->createAddress(OSSIA::Value::Type::BOOL);
+        m_cbIt = m_address->addCallback([=] (const OSSIA::Value* val) {
+            if(auto res = dynamic_cast<const OSSIA::Bool*>(val) ) {
+                m_targetProperty.write(res->value);
+            }
+        });
+        return;
+    }
 
+    case QVariant::Type::Int:
+    case QVariant::Type::UInt:
+    case QVariant::Type::LongLong:
+    case QVariant::Type::ULongLong:
+    {
+        m_address = m_ossia_node->createAddress(OSSIA::Value::Type::INT);
+        m_cbIt = m_address->addCallback([=] (const OSSIA::Value* val) {
+            if(auto res = dynamic_cast<const OSSIA::Int*>(val) ) {
+                m_targetProperty.write(res->value);
+            }
+        });
+        return;
+    }
+
+    case QVariant::Type::Double:
+    {
+        m_address = m_ossia_node->createAddress(OSSIA::Value::Type::FLOAT);
+        m_cbIt = m_address->addCallback([=] (const OSSIA::Value* val) {
+            if(auto res = dynamic_cast<const OSSIA::Float*>(val) ) {
+                m_targetProperty.write(res->value);
+            }
+        });
+        return;
+    }
+
+    case QVariant::Type::Char:
+    {
+        m_address = m_ossia_node->createAddress(OSSIA::Value::Type::CHAR);
+        m_cbIt = m_address->addCallback([=] (const OSSIA::Value* val) {
+            if(auto res = dynamic_cast<const OSSIA::Char*>(val) ) {
+                m_targetProperty.write(res->value);
+            }
+        });
+        return;
+    }
+
+    case QVariant::Type::String:
+    {
+        m_address = m_ossia_node->createAddress(OSSIA::Value::Type::STRING);
+        m_cbIt = m_address->addCallback([=] (const OSSIA::Value* val) {
+            if(auto res = dynamic_cast<const OSSIA::String*>(val) ) {
+                m_targetProperty.write(QString::fromStdString(res->value));
+            }
+        });
+        return;
+    }
+
+    default:
+    {
+        m_address = m_ossia_node->createAddress(OSSIA::Value::Type::IMPULSE);
+        m_cbIt = m_address->addCallback([=] (const OSSIA::Value* val) {
+            m_targetProperty.write(QVariant{});
+        });
+        return;
+    }
+
+
+    }
 }

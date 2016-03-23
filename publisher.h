@@ -19,7 +19,8 @@ signals:
     void yChanged(double y);
 
 };
-
 void printValueCallback(const OSSIA::Value*);
+extern Publisher* publisher_singleton;
 
+Q_DECLARE_METATYPE(Publisher*)
 #endif // PUBLISHER_H

@@ -1,23 +1,33 @@
 import QtQuick 2.0
 import QtQuick.Window 2.2
 import QtAudioEngine 1.0
-
+import OssiaNetwork 1.0
 Item {
     objectName: "Scene"
 
-    property int inPort : 9999
-    property int outPort: 8888
-    property string sceneName: "TopLeft"
+    Item {
+        id: listener
+        OssiaProperty on x {
+            node: "listener/x"
+        }
+        OssiaProperty on y {
+            node: "listener/y"
+        }
+    }
 
-    property point listener;
 
     AudioEngine {
         id: audioEngine
         listener.position : Qt.vector3d(listener.x, listener.y, 0);
 
         AudioCategory {
+            id: master
             name:"sfx"
             volume: 1
+
+            OssiaProperty on volume {
+                node: "volume"
+            }
         }
 
         AttenuationModelInverse {
@@ -120,5 +130,4 @@ Item {
         position: Qt.vector3d(500, 600, 0)
         Component.onCompleted: hornSound.play()
     }
-
 }
