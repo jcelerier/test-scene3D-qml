@@ -5,5 +5,7 @@
         <file>contents/horn.wav</file>
         <file>contents/whistle.wav</file>
         <file>Scene.qml</file>
+        <file>Character.qml</file>
+        <file>SingleShot.qml</file>
     </qresource>
 </RCC>

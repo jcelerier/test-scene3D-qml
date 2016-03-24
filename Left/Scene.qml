@@ -3,6 +3,7 @@ import QtQuick.Window 2.2
 import QtAudioEngine 1.0
 import OssiaNetwork 1.0
 import QtMultimedia 5.5
+
 Item {
     objectName: "Scene"
 
@@ -27,9 +28,14 @@ Item {
         Component.onCompleted: playMusic.play()
     }
 
+    SingleShot {
+        sound: "contents/horn.wav"
+        address: "entry/"
+    }
+
     AudioEngine {
-        id: audioEngine
-        listener.position : Qt.vector3d(listener.x, listener.y, 0);
+        id: dialogEngine
+        listener.position : Qt.vector3d(0, 10, 20);
 
         AudioCategory {
             id: master
@@ -49,45 +55,9 @@ Item {
         }
 
         AudioSample {
-            name:"engine"
-            source: "contents/engine-loop.wav"
-            preloaded:true
-        }
-
-        AudioSample {
-            name:"horn"
-            source: "contents/horn.wav"
-            preloaded:true
-        }
-        AudioSample {
             name:"whistle"
             source: "contents/whistle.wav"
             preloaded:true
-        }
-        Sound {
-            name:"engine_sound"
-            attenuationModel:"atten"
-            category:"sfx"
-            PlayVariation {
-                sample:"engine"
-                maxGain:0.9
-                minGain:0.8
-                minPitch: 0.8
-                maxPitch: 1.1
-            }
-        }
-
-        Sound {
-            name:"horn_sound"
-            attenuationModel:"atten"
-            category:"sfx"
-            PlayVariation {
-                sample:"horn"
-                maxGain:0.9
-                minGain:0.8
-                minPitch: 0.8
-                maxPitch: 1.1
-            }
         }
 
         Sound {
@@ -116,49 +86,92 @@ Item {
     // y = 0 : front; y = max : back
     // listener pointe vers le bas
 
-    SoundInstance {
-        id: shipSound
-        engine:audioEngine
-        sound:"engine_sound"
-        position: Qt.vector3d(300, 400, 0)
-
-        OssiaProperty on gain {
-            node: "engine/gain"
-        }
+    ////// ADAM //////
+    Character {
+        engine: dialogEngine
+        address: "adam/1/"
+        sound: "whistle_sound"
+        pos: Qt.vector3d(-10, 0, 10)
     }
 
-    SoundInstance {
-        id: hornSound
-        engine:audioEngine
-        sound:"horn_sound"
-        position: Qt.vector3d(500, 600, 0)
-        OssiaProperty on gain {
-            node: "horn/gain"
-        }
+    Character {
+        engine: dialogEngine
+        address: "adam/2/"
+        sound: "whistle_sound"
+        pos: Qt.vector3d(-10, 0, 10)
     }
 
-    SoundInstance {
-        id: whistleSound
-        engine:audioEngine
-        sound:"whistle_sound"
-        position: Qt.vector3d(200, 200, 150)
+    Character {
+        engine: dialogEngine
+        address: "adam/3/"
+        sound: "whistle_sound"
+        pos: Qt.vector3d(-10, 0, 10)
+    }
 
-        OssiaProperty on gain {
-            node: "whistle/gain"
-        }
+    Character {
+        engine: dialogEngine
+        address: "adam/4/"
+        sound: "whistle_sound"
+        pos: Qt.vector3d(-10, 0, 10)
     }
 
 
-    OssiaImpulse {
-        node: "horn/play"
-        onImpulse: hornSound.play()
+    ////// GOD //////
+    Character {
+        engine: dialogEngine
+        address: "god/1/"
+        sound: "whistle_sound"
+        pos: Qt.vector3d(0, 10, 15)
     }
-    OssiaImpulse {
-        node: "engine/play"
-        onImpulse: engineSound.play()
+
+    Character {
+        engine: dialogEngine
+        address: "god/2/"
+        sound: "whistle_sound"
+        pos: Qt.vector3d(0, 10, 15)
     }
-    OssiaImpulse {
-        node: "whistle/play"
-        onImpulse: whistleSound.play()
+
+    Character {
+        engine: dialogEngine
+        address: "god/3/"
+        sound: "whistle_sound"
+        pos: Qt.vector3d(0, 10, 15)
+    }
+
+    Character {
+        engine: dialogEngine
+        address: "god/4/"
+        sound: "whistle_sound"
+        pos: Qt.vector3d(0, 10, 15)
+    }
+
+
+    ////// EVE //////
+    Character {
+        engine: dialogEngine
+        address: "god/1/"
+        sound: "whistle_sound"
+        pos: Qt.vector3d(10, 0, 13)
+    }
+
+    Character {
+        engine: dialogEngine
+        address: "god/2/"
+        sound: "whistle_sound"
+        pos: Qt.vector3d(10, 0, 13)
+    }
+
+    Character {
+        engine: dialogEngine
+        address: "god/3/"
+        sound: "whistle_sound"
+        pos: Qt.vector3d(10, 0, 13)
+    }
+
+    Character {
+        engine: dialogEngine
+        address: "god/4/"
+        sound: "whistle_sound"
+        pos: Qt.vector3d(10, 0, 13)
     }
 }
