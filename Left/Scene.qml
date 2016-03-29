@@ -20,7 +20,7 @@ Item {
     SoundEffect {
         id: playMusic
         loops: SoundEffect.Infinite
-        source: "file:///home/jcelerier/bosch/audio/fond/fond-A.wav"
+        source: "file:///Users/grapholine/bosch-2/audio/fond/fond-A.wav"
         OssiaProperty on volume {
             node: "bgm/gain"
         }
@@ -29,7 +29,7 @@ Item {
     }
 
     SingleShot {
-        sound: "file:///home/jcelerier/bosch/audio/SFX/Transition-1.wav"
+        sound: "file:///Users/grapholine/bosch-2/audio/SFX/Transition-1.wav"
         address: "entry/"
     }
 
@@ -56,7 +56,7 @@ Item {
 
         AudioSample {
             name: "Adam-1-sample"
-            source: "file:///home/jcelerier/bosch/audio/dialog/Adam-1-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/dialog/Adam-1-mono.wav"
             preloaded:true
         }
 
@@ -75,7 +75,7 @@ Item {
 
         AudioSample {
             name: "Adam-2-sample"
-            source: "file:///home/jcelerier/bosch/audio/dialog/Adam-2-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/dialog/Adam-2-mono.wav"
             preloaded:true
         }
 
@@ -96,7 +96,7 @@ Item {
 
         AudioSample {
             name: "Adam-3-sample"
-            source: "file:///home/jcelerier/bosch/audio/dialog/Adam-3-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/dialog/Adam-3-mono.wav"
             preloaded:true
         }
 
@@ -117,7 +117,7 @@ Item {
 
         AudioSample {
             name: "Adam-4-sample"
-            source: "file:///home/jcelerier/bosch/audio/dialog/Adam-4-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/dialog/Adam-4-mono.wav"
             preloaded:true
         }
 
@@ -139,7 +139,7 @@ Item {
 
         AudioSample {
             name: "Adam-5-sample"
-            source: "file:///home/jcelerier/bosch/audio/dialog/Adam-5-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/dialog/Adam-5-mono.wav"
             preloaded:true
         }
 
@@ -165,7 +165,7 @@ Item {
 
         AudioSample {
             name: "God-1-sample"
-            source: "file:///home/jcelerier/bosch/audio/dialog/God-1-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/dialog/God-1-mono.wav"
             preloaded:true
         }
 
@@ -184,7 +184,7 @@ Item {
 
         AudioSample {
             name: "God-2-sample"
-            source: "file:///home/jcelerier/bosch/audio/dialog/God-2-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/dialog/God-2-mono.wav"
             preloaded:true
         }
 
@@ -205,7 +205,7 @@ Item {
 
         AudioSample {
             name: "God-3-sample"
-            source: "file:///home/jcelerier/bosch/audio/dialog/God-3-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/dialog/God-3-mono.wav"
             preloaded:true
         }
 
@@ -226,7 +226,7 @@ Item {
 
         AudioSample {
             name: "God-4-sample"
-            source: "file:///home/jcelerier/bosch/audio/dialog/God-4-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/dialog/God-4-mono.wav"
             preloaded:true
         }
 
@@ -249,7 +249,7 @@ Item {
         AudioSample {
             id: theSample
             name: "Eve-1-sample"
-            source: "file:///home/jcelerier/bosch/audio/dialog/Eve-1-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/dialog/Eve-1-mono.wav"
             preloaded:true
         }
 
@@ -268,7 +268,7 @@ Item {
 
         AudioSample {
             name: "Eve-2-sample"
-            source: "file:///home/jcelerier/bosch/audio/dialog/Eve-2-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/dialog/Eve-2-mono.wav"
             preloaded:true
         }
 
@@ -287,7 +287,7 @@ Item {
 
         AudioSample {
             name: "Eve-3-sample"
-            source: "file:///home/jcelerier/bosch/audio/dialog/Eve-3-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/dialog/Eve-3-mono.wav"
             preloaded:true
         }
 
@@ -306,7 +306,7 @@ Item {
 
         AudioSample {
             name: "Eve-4-sample"
-            source: "file:///home/jcelerier/bosch/audio/dialog/Eve-4-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/dialog/Eve-4-mono.wav"
             preloaded:true
         }
 
@@ -325,7 +325,7 @@ Item {
 
         AudioSample {
             name: "Eve-5-sample"
-            source: "file:///home/jcelerier/bosch/audio/dialog/Eve-5-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/dialog/Eve-5-mono.wav"
             preloaded:true
         }
 

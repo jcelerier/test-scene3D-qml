@@ -18,7 +18,7 @@ Item {
 
     SoundEffect {
         id: playMusic
-        source: "file:///home/jcelerier/bosch/audio/fond/fond-C.wav"
+        source: "file:///Users/grapholine/bosch-2/audio/fond/fond-C.wav"
         OssiaProperty on volume {
             node: "bgm/gain"
         }

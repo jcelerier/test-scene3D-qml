@@ -20,7 +20,7 @@ Item {
 
     SoundEffect {
         id: playMusic
-        source: "file:///home/jcelerier/bosch/audio/fond/fond-B.wav"
+        source: "file:///Users/grapholine/bosch-2/audio/fond/fond-B.wav"
         OssiaProperty on volume {
             node: "bgm/gain"
         }
@@ -53,7 +53,7 @@ Item {
 
         AudioSample {
             name: "Foule-1-sample"
-            source: "file:///home/jcelerier/bosch/audio/foule/Foule-1-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/foule/Foule-1-mono.wav"
             preloaded:true
         }
 
@@ -72,7 +72,7 @@ Item {
 
         AudioSample {
             name: "Foule-2-sample"
-            source: "file:///home/jcelerier/bosch/audio/foule/Foule-2-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/foule/Foule-2-mono.wav"
             preloaded:true
         }
 
@@ -93,7 +93,7 @@ Item {
 
         AudioSample {
             name: "Foule-3-sample"
-            source: "file:///home/jcelerier/bosch/audio/foule/Foule-3-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/foule/Foule-3-mono.wav"
             preloaded:true
         }
 
@@ -114,7 +114,7 @@ Item {
 
         AudioSample {
             name: "Foule-4-sample"
-            source: "file:///home/jcelerier/bosch/audio/foule/Foule-4-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/foule/Foule-4-mono.wav"
             preloaded:true
         }
 
@@ -136,7 +136,7 @@ Item {
 
         AudioSample {
             name: "Foule-5-sample"
-            source: "file:///home/jcelerier/bosch/audio/foule/Foule-5-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/foule/Foule-5-mono.wav"
             preloaded:true
         }
 
@@ -156,7 +156,7 @@ Item {
 
         AudioSample {
             name: "Foule-6-sample"
-            source: "file:///home/jcelerier/bosch/audio/foule/Foule-6-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/foule/Foule-6-mono.wav"
             preloaded:true
         }
 

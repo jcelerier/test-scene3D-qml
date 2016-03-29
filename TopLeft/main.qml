@@ -5,6 +5,6 @@ Window {
     visible: true
     objectName: "Main"
     property int inPort : 13579
-    property int outPort: 10010
-    property string sceneName: "Left"
+    property int outPort: 10015
+    property string sceneName: "TopLeft"
 }

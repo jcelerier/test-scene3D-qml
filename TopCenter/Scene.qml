@@ -41,7 +41,7 @@ Item {
 
         AudioSample {
             name: "Pillars-sample"
-            source: "file:///home/jcelerier/bosch/audio/SFX/Pillars-mono.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/SFX/Pillars-mono.wav"
             preloaded:true
         }
 
@@ -60,7 +60,7 @@ Item {
 
         AudioSample {
             name: "PillarsVerb-sample"
-            source: "file:///home/jcelerier/bosch/audio/SFX/Pillars-verb.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/SFX/Pillars-verb.wav"
             preloaded:true
         }
 

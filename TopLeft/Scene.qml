@@ -41,13 +41,13 @@ Item {
 
         AudioSample {
             name: "Tower-1-sample"
-            source: "file:///home/jcelerier/bosch/audio/SFX/Tower-1.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/SFX/Tower-1.wav"
             preloaded:true
         }
 
         AudioSample {
             name: "Tower-2-sample"
-            source: "file:///home/jcelerier/bosch/audio/SFX/Tower-2.wav"
+            source: "file:///Users/grapholine/bosch-2/audio/SFX/Tower-2.wav"
             preloaded:true
         }
         Sound {
