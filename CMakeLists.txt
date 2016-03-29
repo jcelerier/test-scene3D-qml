@@ -24,7 +24,7 @@ function(target_transfer_options TheTarget TheLib)
 endfunction()
 
 if (OSSIA_API)
-	add_subdirectory(${OSSIA_API} API)
+  add_subdirectory(${OSSIA_API} API)
 
         add_library(SceneLib OBJECT
             main.cpp
@@ -47,9 +47,11 @@ if (OSSIA_API)
             target_link_libraries(${Name}_scene PUBLIC Qt5::Core Qt5::Widgets Qt5::Gui APIJamoma Qt5::Qml Qt5::Multimedia)
         endfunction()
 
+        add_scene(TopLeft)
         add_scene(Left)
+        add_scene(TopCenter)
         add_scene(Center)
         add_scene(Right)
 else()
-	message( SEND_ERROR "Please specify the path to the OSSIA API in the variable OSSIA_API (-DOSSIA_API=/path/to/api)" )
+  message( SEND_ERROR "Please specify the path to the OSSIA API in the variable OSSIA_API (-DOSSIA_API=/path/to/api)" )
 endif()

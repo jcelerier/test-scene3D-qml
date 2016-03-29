@@ -14,11 +14,13 @@ Item {
         OssiaProperty on y {
             node: "listener/y"
         }
+
+        onXChanged: console.log("Point: " + x + " ," + y)
     }
 
     SoundEffect {
         id: playMusic
-        source: "file:///home/jcelerier/travail/test-scene-audio3D/Center/contents/fond-B.wav"
+        source: "file:///home/jcelerier/bosch/audio/fond/fond-B.wav"
         OssiaProperty on volume {
             node: "bgm/gain"
         }
@@ -48,29 +50,19 @@ Item {
             rolloff: 1
         }
 
-        AudioSample {
-            name:"engine"
-            source: "/contents/engine-loop.wav"
-            preloaded:true
-        }
 
         AudioSample {
-            name:"horn"
-            source: "/contents/horn.wav"
-            preloaded:true
-        }
-        AudioSample {
-            name:"whistle"
-            source: "/contents/whistle.wav"
+            name: "Foule-1-sample"
+            source: "file:///home/jcelerier/bosch/audio/foule/Foule-1-mono.wav"
             preloaded:true
         }
 
         Sound {
-            name:"engine_sound"
+            name: "Foule-1"
             attenuationModel:"atten"
             category:"sfx"
             PlayVariation {
-                sample:"engine"
+                sample: "Foule-1-sample"
                 maxGain:0.9
                 minGain:0.8
                 minPitch: 0.8
@@ -78,12 +70,18 @@ Item {
             }
         }
 
+        AudioSample {
+            name: "Foule-2-sample"
+            source: "file:///home/jcelerier/bosch/audio/foule/Foule-2-mono.wav"
+            preloaded:true
+        }
+
         Sound {
-            name:"horn_sound"
+            name: "Foule-2"
             attenuationModel:"atten"
             category:"sfx"
             PlayVariation {
-                sample:"horn"
+                sample: "Foule-2-sample"
                 maxGain:0.9
                 minGain:0.8
                 minPitch: 0.8
@@ -91,12 +89,83 @@ Item {
             }
         }
 
+
+
+        AudioSample {
+            name: "Foule-3-sample"
+            source: "file:///home/jcelerier/bosch/audio/foule/Foule-3-mono.wav"
+            preloaded:true
+        }
+
         Sound {
-            name:"whistle_sound"
+            name: "Foule-3"
             attenuationModel:"atten"
             category:"sfx"
             PlayVariation {
-                sample:"whistle"
+                sample: "Foule-3-sample"
+                maxGain:0.9
+                minGain:0.8
+                minPitch: 0.8
+                maxPitch: 1.1
+            }
+        }
+
+
+
+        AudioSample {
+            name: "Foule-4-sample"
+            source: "file:///home/jcelerier/bosch/audio/foule/Foule-4-mono.wav"
+            preloaded:true
+        }
+
+        Sound {
+            name: "Foule-4"
+            attenuationModel:"atten"
+            category:"sfx"
+            PlayVariation {
+                sample: "Foule-4-sample"
+                maxGain:0.9
+                minGain:0.8
+                minPitch: 0.8
+                maxPitch: 1.1
+            }
+        }
+
+
+
+
+        AudioSample {
+            name: "Foule-5-sample"
+            source: "file:///home/jcelerier/bosch/audio/foule/Foule-5-mono.wav"
+            preloaded:true
+        }
+
+        Sound {
+            name: "Foule-5"
+            attenuationModel:"atten"
+            category:"sfx"
+            PlayVariation {
+                sample: "Foule-5-sample"
+                maxGain:0.9
+                minGain:0.8
+                minPitch: 0.8
+                maxPitch: 1.1
+            }
+        }
+
+
+        AudioSample {
+            name: "Foule-6-sample"
+            source: "file:///home/jcelerier/bosch/audio/foule/Foule-6-mono.wav"
+            preloaded:true
+        }
+
+        Sound {
+            name: "Foule-6"
+            attenuationModel:"atten"
+            category:"sfx"
+            PlayVariation {
+                sample: "Foule-6-sample"
                 maxGain:0.9
                 minGain:0.8
                 minPitch: 0.8
@@ -107,58 +176,50 @@ Item {
         dopplerFactor: 1
         speedOfSound: 343.33
 
-        listener.up:"0,0,1"
+        listener.up:"0,1,0"
         listener.velocity:"0,0,0"
-        listener.direction:"0,1,0"
+        listener.direction:"0,0,-1"
     }
 
 
     // x = 0 : left; x = max : right
     // y = 0 : front; y = max : back
     // listener pointe vers le bas
-
-    SoundInstance {
-        id: shipSound
-        engine:audioEngine
-        sound:"engine_sound"
-        position: Qt.vector3d(300, 400, 0)
-
-        OssiaProperty on gain {
-            node: "engine/gain"
-        }
+    Character {
+        engine: audioEngine
+        address: "Foule/1/"
+        sound: "Foule-1"
+        pos: Qt.vector3d(-30, 0, 15)
+    }
+    Character {
+        engine: audioEngine
+        address: "Foule/2/"
+        sound: "Foule-2"
+        pos: Qt.vector3d(30, 0, 15)
+    }
+    Character {
+        engine: audioEngine
+        address: "Foule/3/"
+        sound: "Foule-3"
+        pos: Qt.vector3d(-30, 0, -15)
     }
 
-    SoundInstance {
-        id: hornSound
-        engine:audioEngine
-        sound:"horn_sound"
-        position: Qt.vector3d(500, 600, 0)
-        OssiaProperty on gain {
-            node: "horn/gain"
-        }
+    Character {
+        engine: audioEngine
+        address: "Foule/4/"
+        sound: "Foule-4"
+        pos: Qt.vector3d(-25, 20, -10)
     }
-
-    SoundInstance {
-        id: whistleSound
-        engine:audioEngine
-        sound:"whistle_sound"
-        position: Qt.vector3d(200, 200, 150)
-
-        OssiaProperty on gain {
-            node: "whistle/gain"
-        }
+    Character {
+        engine: audioEngine
+        address: "Foule/5/"
+        sound: "Foule-5"
+        pos: Qt.vector3d(60,60,100)
     }
-
-    OssiaImpulse {
-        node: "horn/play"
-        onImpulse: hornSound.play()
-    }
-    OssiaImpulse {
-        node: "engine/play"
-        onImpulse: engineSound.play()
-    }
-    OssiaImpulse {
-        node: "whistle/play"
-        onImpulse: whistleSound.play()
+    Character {
+        engine: audioEngine
+        address: "Foule/6/"
+        sound: "Foule-6"
+        pos: Qt.vector3d(-100,10,50)
     }
 }

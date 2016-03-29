@@ -12,7 +12,7 @@ Item
         OssiaProperty on volume {
             node: address + "gain"
         }
-        volume: 0.1
+        volume: 0.05
     }
 
     OssiaImpulse {

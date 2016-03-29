@@ -1,9 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>contents/engine-loop.wav</file>
-        <file>contents/horn.wav</file>
-        <file>contents/whistle.wav</file>
         <file>Scene.qml</file>
         <file>Character.qml</file>
         <file>SingleShot.qml</file>
