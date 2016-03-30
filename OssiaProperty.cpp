@@ -1,7 +1,7 @@
 #include "OssiaProperty.hpp"
 #include "publisher.h"
 #include <iostream>
-
+#include <QVector3D>
 std::shared_ptr<OSSIA::Node> getOrCreateNode(
         std::shared_ptr<OSSIA::Node> root,
         QStringList str)
@@ -136,6 +136,39 @@ void OssiaProperty::setupAddress()
                 m_targetProperty.write(res->value);
             }
         });
+        return;
+    }
+
+    case QMetaType::Type::QVector3D:
+    {
+        m_address = m_ossia_node->createAddress(OSSIA::Value::Type::TUPLE);
+        m_address->addCallback([=] (const OSSIA::Value* val) {
+            if(auto res = dynamic_cast<const OSSIA::Tuple*>(val) ) {
+                auto& vec = res->value;
+                if(vec.size() < 3)
+                    return;
+                else
+                {
+                    QVector3D v3d;
+
+                    if(auto v = dynamic_cast<OSSIA::Float*>(vec[0]))
+                        v3d.setX(v->value);
+                    else
+                        return;
+                    if(auto v = dynamic_cast<OSSIA::Float*>(vec[1]))
+                        v3d.setY(v->value);
+                    else
+                        return;
+                    if(auto v = dynamic_cast<OSSIA::Float*>(vec[2]))
+                        v3d.setZ(v->value);
+                    else
+                        return;
+
+                    m_targetProperty.write(v3d);
+                }
+            }
+        });
+
         return;
     }
 
