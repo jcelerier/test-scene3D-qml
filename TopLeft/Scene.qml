@@ -9,6 +9,8 @@ Item {
 
     Item {
         id: listener
+        x:250
+        y:0
         OssiaProperty on x {
             node: "listener/x"
         }
@@ -20,12 +22,12 @@ Item {
 
     AudioEngine {
         id: towerEngine
-        listener.position : Qt.vector3d(listener.x, 0, 0);
+        listener.position : Qt.vector3d(listener.x, 0, listener.y);
 
         AudioCategory {
             id: towermaster
             name:"sfx"
-            volume: 1
+            volume: 2
 
             OssiaProperty on volume {
                 node: "tower_volume"
@@ -73,9 +75,9 @@ Item {
         dopplerFactor: 1
         speedOfSound: 343.33
 
-        listener.up:"0,0,1"
+        listener.up:"0,1,0"
         listener.velocity:"0,0,0"
-        listener.direction:"0,1,0"
+        listener.direction:"0,0,-1"
 
     }
 
@@ -83,7 +85,7 @@ Item {
         engine: towerEngine
         address: "Pillar/"
         sound: "Tower"
-        pos: Qt.vector3d(250, -200, -200)
+        pos: Qt.vector3d(250, 0, 0)
     }
 
 }
